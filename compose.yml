@@ -1,0 +1,33 @@
+version: '0.1'
+
+services:
+  api:
+    image: golang:1.22.2
+    build: ./SpringBoot
+    ports:
+      - "8080:8080"
+    networks:
+      - redWeb
+    depends_on:
+      - db
+
+
+  db:
+    build: ./Postgres
+    networks:
+      - redWeb
+
+
+  frontend:
+    build: ./React
+    ports:
+      - "3000:3000"
+    networks:
+      - redWeb
+    depends_on:
+      - api
+
+
+networks:
+  redWeb:
+    driver: bridge
