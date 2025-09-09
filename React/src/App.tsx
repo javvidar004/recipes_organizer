@@ -1,27 +1,18 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import React from 'react';
+import Navbar from './components/Navbar';
 import './App.css'
 
-function Navbar () {
-  return (
-    <nav>
-      <ul>
-        <li>Home</li>
-        <li>About</li>
-        <li>Contact</li>
-      </ul>
-    </nav>
-  )
-}
+
 
 
 
 function App() {
+  const [state, setState] = useState(0);
   return (
     <>
       <div>
-        <Navbar />
+        <Navbar state={state} setState={setState} />
       </div>
     </>
   )
