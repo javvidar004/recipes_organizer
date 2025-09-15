@@ -1,93 +1,21 @@
 @import 'tailwindcss';
 
-body {
-    background-color: aliceblue;
-    margin: 0;
+.header-navbar {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #1F2937;
+    padding: 10px 20px;
 }
 
-
-h1 {
-    text-align: center;
-    margin: auto;
-    width: 50%;
-
-}
-
-div.Dbody {
-    padding: 20px;
-    margin-top: 30px;
-    width: 100%;
-}
-
-.container {
-    width: 100%;
-}
-
-.indicator {
-    width: 33%;
-    float: left;
-    height: 50px;
-}
-
-.frame {
-    margin: auto;
-    width: 80%;
-    border: 3px solid;
-    border-style: outset;
-    padding: 10px;
-    border-radius: 20px;
-    height: 75%;
-}
-
-.center {
-    margin: auto;
-    width: 50%;
-    border: 3px solid;
-    border-style: outset;
-    padding: 10px;
-    border-radius: 20px;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-    position: fixed;
-    width: 100%;
-    top: 0;
-}
-
-li {
-    float: left;
-}
-
-li:last-child {
-    float: right;
-
-}
-
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
+.header-navbar a{
+    color: #F9FAF6;
     text-decoration: none;
-
+    margin-left: 20px;
+    font-weight: 500;
 }
 
-li a:hover {
-    background-color: #111;
+.header-navbar a:hover {
+    color: #A16207;
 }
 
-footer{
-    position: fixed;
-}
 
-input {
-    width: 100%;
-    margin: 6px 0px;
-    line-height: 16px;
-    padding: 12px 0px;
-}
