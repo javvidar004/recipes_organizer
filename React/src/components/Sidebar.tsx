@@ -4,35 +4,30 @@ function Sidebar() {
     return (
         <>
           <div className="side-nav-collapse ">
-              <ul className="sidebar-menu" id="nav-accordion">
-                    <li className="mt">
+                <h2>Options</h2>
+              <ul>
+                    <li>
                         <a href="">
                             <i className="fa fa-dashboard"></i>
-                            <span>Main Dashboard</span>
+                            <span>Recipes</span>
                         </a>
                     </li>
-                    <li className="sub-menu">
-                        <a href="javascript:;">
+                    <li>
+                        <a href="">
                             <i className="fa fa-desktop"></i>
-                            <span>Social Media Platforms</span>
+                            <span>Strikes</span>
                         </a>
                     </li>
-                    <li className="sub-menu">
-                        <a href="javascript:;">
+                    <li>
+                        <a href="">
                             <i className="fa fa-cloud"></i>
-                            <span>Countries</span>
+                            <span>Search</span>
                         </a>
                     </li>
-                    <li className="sub-menu">
-                        <a href="javascript:;">
+                    <li>
+                        <a href="">
                             <i className="fa fa-book"></i>
-                            <span>Genders</span>
-                        </a>
-                    </li>
-                    <li className="sub-menu">
-                        <a href="javascript:;">
-                            <i className="fa fa-tasks"></i>
-                            <span>Entertainment</span>
+                            <span>Favorites</span>
                         </a>
                     </li>
                 </ul>

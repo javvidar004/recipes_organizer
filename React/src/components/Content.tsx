@@ -2,7 +2,7 @@ import React from "react";
 
 function Content() {
     return (
-        <div>
+        <div className="content-area">
             <h2>Content Area</h2>
         </div>
     );

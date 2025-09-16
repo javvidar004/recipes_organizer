@@ -9,9 +9,13 @@ function Navbar(){
     return (
         <>
             <div className='header-navbar'>
-                        <a href="">Home</a>
-                        <a href="">Login</a>
-                        <a href="">Sign up</a>
+                    <button className='menu-btn'>
+                        <i className="fa fa-bars" ></i>
+                    </button>
+                    <h1>Recipes Organizer</h1>
+                    <a href="">Home</a>
+                    <a href="">Login</a>
+                    <a href="">Sign up</a>
             </div>
         </>
     )

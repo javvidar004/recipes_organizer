@@ -11,11 +11,37 @@
     color: #F9FAF6;
     text-decoration: none;
     margin-left: 20px;
-    font-weight: 500;
+    font-size: 1.4em;
+    display: table-cell;
+    align-content: center;
 }
 
 .header-navbar a:hover {
     color: #A16207;
 }
 
+.header-navbar h1 {
+    text-align: left;
+    color: #F9FAF6;
+    margin-left: 0;
+    font-size: 1.5em;
+    font-weight: 600;
+}
+
+.header-navbar .menu-btn {
+    margin-right: 2%;
+    background: none;
+}
+
+.header-navbar .menu-btn:hover {
+    cursor: pointer;
+    color: #F9FAF6;
+    box-shadow: #A16207 0px 1px 5px;
+}
+
+.header-navbar .menu-btn i {
+    color: #A16207;
+    font-size: 24px;
+    margin-right: auto;
+}
 

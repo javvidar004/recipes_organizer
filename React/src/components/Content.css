@@ -1,3 +1,9 @@
 @import 'tailwindcss';
 
 
+.content-area {
+    width: 80%;
+    padding: 20px;
+    box-sizing: border-box;
+    display: inline-block;
+}

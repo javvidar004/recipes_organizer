@@ -1,2 +1,55 @@
 @import 'tailwindcss';
 
+.side-nav-collapse {
+    width: 20%;
+    background-color: #1F2937;
+    height: 100vh;
+    display: inline-block;
+    float: left;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.side-nav-collapse ul {
+    padding: 0;
+    margin: 0;
+
+}
+
+.side-nav-collapse li {
+    color: #F9FAF6;
+    text-decoration: none;
+    margin: 15px 0;
+    font-weight: 500;
+    list-style: none;
+    cursor: pointer;
+
+}
+
+.side-nav-collapse li:hover {
+    color: #A16207;
+}
+
+.side-nav-collapse h2 {
+    color: #F9FAF6;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.side-nav-collapse i {
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: #A16207;
+}
+
+.side-nav-collapse span {
+    vertical-align: middle;
+    color: #F9FAF6;
+}
+
+.side-nav-collapse span:hover {
+    vertical-align: middle;
+    color: #A16207;
+}
