@@ -4,30 +4,31 @@ function Sidebar() {
     return (
         <>
           <div className="side-nav-collapse ">
-                <h2>Options</h2>
+                
               <ul>
+                <h2>Options</h2>
                     <li>
                         <a href="">
                             <i className="fa fa-dashboard"></i>
-                            <span>Recipes</span>
+                            Recipes
                         </a>
                     </li>
                     <li>
                         <a href="">
-                            <i className="fa fa-desktop"></i>
-                            <span>Strikes</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="">
-                            <i className="fa fa-cloud"></i>
-                            <span>Search</span>
+                            <i className="fa fa-search"></i>
+                            Search
                         </a>
                     </li>
                     <li>
                         <a href="">
                             <i className="fa fa-book"></i>
-                            <span>Favorites</span>
+                            Favorites
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i className="fa fa-cog"></i>
+                            Configurations
                         </a>
                     </li>
                 </ul>
