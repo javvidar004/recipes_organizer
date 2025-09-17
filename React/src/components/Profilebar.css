@@ -1,0 +1,59 @@
+@import 'tailwindcss';
+
+.profile-bar-collapse {
+    width: 18%;
+    background-color: #1F2937;
+    height: 100vh;
+    float: right;
+    padding-top: 20px;
+    
+}
+
+.profile-bar-collapse tr {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+}
+
+.profile-bar-collapse td{
+    background-color: #1F2937;
+    width: 100%;
+    padding: 1.5em;
+}
+
+.profile-bar-collapse tr{
+    color: #F9FAF6;
+    text-decoration: none;
+    margin: 15px 0;
+    font-weight: 500;
+    list-style: none;
+    cursor: pointer;
+    height: 3em;
+
+}
+
+.profile-bar-collapse tr:hover td{
+    background-color: #A16207;
+}
+
+.profile-bar-collapse tr:hover td{
+    color: #1F2937;
+}
+
+.profile-bar-collapse td:hover i{
+    color: #F9FAF6;
+}
+
+.profile-bar-collapse h2 {
+    color: #F9FAF6;
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.profile-bar-collapse i {
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: #A16207;
+}

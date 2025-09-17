@@ -10,13 +10,13 @@ function Content() {
                             <input type="text" id="username" name="username" required placeholder="email/username"/>
                         </div>
                         <div className="Dform">
-                            <input type="password" id="password" name="password" required placeholder="Contraseña"/>
+                            <input type="password" id="password" name="password" required placeholder="password"/>
                         </div>
                         <div className="Dform">
                             <a href="">Forgot password?</a>
                         </div>
                         <div className="Dform">
-                            <input type="submit" value="Log in"/>
+                            <input className="send" type="submit" value="Log in"/>
                         </div>
                     </form>
             </div>
@@ -43,7 +43,7 @@ function Content() {
                             <input type="password" id="password" name="password" required placeholder="confirm password"/>
                         </div>
                         <div className="Dform">
-                            <input type="submit" value="Registrarse"/>
+                            <input className="send" type="submit" value="Registrarse"/>
                         </div>
                     </form>
             </div>
@@ -55,7 +55,7 @@ function Content() {
                             <input type="text" id="username" name="username" required placeholder="email"/>
                         </div>
                         <div className="Dform">
-                            <input type="submit" value="Recuperar"/>
+                            <input className="send" type="submit" value="Recuperar"/>
                         </div>
                     </form>
             </div>

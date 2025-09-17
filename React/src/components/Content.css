@@ -2,7 +2,7 @@
 
 
 .content-area {
-    width: 82%;
+    width: 64%;
     padding: 20px;
     box-sizing: border-box;
     display: inline-block;
@@ -21,9 +21,31 @@
 .content-form input {
     border-radius: 5px;
     width: 90%;
+    border: 1px solid #F9FAF6;
 }
 
-.contetnt-data {
+.content-form .Dform a {
+    color: #3B82F6;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.content-form .send {
+    background-color: #A16207;
+    color: #F9FAF6;
+    border: 1px solid #A16207;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.content-form .send:hover {
+    background-color: #F9FAF6;
+    color: #A16207;
+    border: 1px solid #3B82F6;
+}
+
+.content-data {
     width: 82%;
     padding: 20px;
     box-sizing: border-box;
