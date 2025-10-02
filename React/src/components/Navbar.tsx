@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import React from 'react';
+import './Navbar.css'
 
 // If state is 0 show home and login (home)
 // If state is 1 show home and register (login)
@@ -13,9 +15,9 @@ function Navbar(){
                         <i className="fa fa-bars" ></i>
                     </button>
                     <h1>Recipes Organizer</h1>
-                    <a href="">Home</a>
-                    <a href="">Login</a>
-                    <a href="">Sign up</a>
+                    <Link to="/">Home</Link>
+                    <Link to="/login">Login</Link>
+                    <Link to="/register">Sign up</Link>
             </div>
         </>
     )

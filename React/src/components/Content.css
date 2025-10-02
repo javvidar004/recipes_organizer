@@ -2,8 +2,8 @@
 
 
 .content-area {
-    width: 64%;
-    padding: 20px;
+    width: 100vw;
+    padding: 100px;
     box-sizing: border-box;
     display: inline-block;
 }

@@ -1,11 +1,13 @@
 @import 'tailwindcss';
 
 .side-nav-collapse {
-    width: 18%;
+    width: 200px;
     background-color: #1F2937;
     height: 100vh;
-    float: left;
+    left: 0;
     padding-top: 20px;
+    z-index: 30;
+    position: fixed;
     
 }
 

@@ -1,12 +1,14 @@
 @import 'tailwindcss';
 
 .profile-bar-collapse {
-    width: 18%;
+    width: 200px;
     background-color: #1F2937;
     height: 100vh;
-    float: right;
+    top: 60px;
     padding-top: 20px;
-    
+    z-index: 30;
+    right: 0;
+    position: fixed;
 }
 
 .profile-bar-collapse tr {
@@ -35,13 +37,33 @@
 
 .profile-bar-collapse tr:hover td{
     background-color: #A16207;
-}
-
-.profile-bar-collapse tr:hover td{
     color: #1F2937;
 }
 
 .profile-bar-collapse td:hover i{
+    color: #F9FAF6;
+}
+
+.profile-bar-collapse tr:last-child td{
+    column-span: 2;
+}
+
+.profile-bar-collapse tr:last-child:hover td{
+    background-color: #3B82F6;
+    color: #A16207;
+}
+
+.profile-bar-collapse tr:last-child a{
+    background-color: #1F2937;
+    color: #F9FAF6;
+}
+
+.profile-bar-collapse tr:last-child:hover a{
+    background-color: #3B82F6;
+    color: #1F2937;
+}
+
+.profile-bar-collapse td:last-child:hover i{
     color: #F9FAF6;
 }
 

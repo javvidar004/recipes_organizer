@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+
+.home-container {
+    padding-top: 60px;
+}

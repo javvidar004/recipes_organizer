@@ -7,14 +7,19 @@ import '../components/Navbar.css'
 import '../components/Sidebar.css'
 import '../components/Content.css'
 import '../components/Profilebar.css'
+import './Home.css'
 
 function Home() {
     return (
         <>
             <Navbar />
-            <Sidebar />
-            <Content />
-            <Profilebar />
+            <div className="home-container">
+                <div className="content-area">
+                    <div className="content-data">
+                        <h2>Home</h2>
+                    </div>
+                </div>
+            </div>
         </>
     );
 }

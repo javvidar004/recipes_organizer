@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom';
 import React from "react";
+import './Sidebar.css'
 
 function Sidebar() {
     return (
@@ -8,28 +10,40 @@ function Sidebar() {
               <ul>
                 <h2>Options</h2>
                     <li>
-                        <a href="">
+                        <Link to="/menus">
+                            <i className="fa fa-dashboard"></i>
+                            Menus
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/superlist">
+                            <i className="fa fa-dashboard"></i>
+                            Super list
+                        </Link>
+                    </li>
+                    <li>
+                        <Link to="/recipes">
                             <i className="fa fa-dashboard"></i>
                             Recipes
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="">
+                        <Link to="/search">
                             <i className="fa fa-search"></i>
                             Search
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="">
+                        <Link to="/favorites">
                             <i className="fa fa-book"></i>
                             Favorites
-                        </a>
+                        </Link>
                     </li>
                     <li>
-                        <a href="">
+                        <Link to="/configurations">
                             <i className="fa fa-cog"></i>
                             Configurations
-                        </a>
+                        </Link>
                     </li>
                 </ul>
             </div>

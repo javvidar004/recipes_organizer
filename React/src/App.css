@@ -3,6 +3,7 @@
 #root {
   max-width: 1600px;
   margin: auto;
+  margin-top: 0px;
   padding: 0;
   text-align: center;
 }

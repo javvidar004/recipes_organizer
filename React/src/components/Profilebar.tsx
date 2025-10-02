@@ -1,9 +1,10 @@
 import React from "react";
+import './Profilebar.css'
 
 function Profilebar() {
     return (
         <>
-            <div className="profile-bar-collapse ">
+            <div className="profile-bar-collapse">
                 <table>
                     <tr>
                         <th><h2>Profile</h2></th>
@@ -32,8 +33,10 @@ function Profilebar() {
                     </tr>
                     <tr>
                         <td>
+                            <a href="">
                                 <i className="fa fa-sign-out"></i>
                                 Log out
+                            </a>
                         </td>
                     </tr>
                 </table>
