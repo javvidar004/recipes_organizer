@@ -1,8 +1,3 @@
--- Create the database
-CREATE DATABASE RecipeDB;
-
-\c RecipeDB;    
-
 -- Create the Types table 
 CREATE TABLE Types ( 
     id_type SERIAL PRIMARY KEY, 
