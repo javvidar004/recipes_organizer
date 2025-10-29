@@ -1,3 +1,73 @@
+-- Create the Types table 
+CREATE TABLE Types ( 
+    id_type SERIAL PRIMARY KEY, 
+    name VARCHAR(255) ); 
+    
+-- Create the Ingredients table 
+CREATE TABLE Ingredients ( 
+    id_ingredient SERIAL PRIMARY KEY, 
+    name VARCHAR(100), 
+    calories DOUBLE PRECISION, 
+    aprox_cost DOUBLE PRECISION ); 
+
+-- Create the Users table 
+CREATE TABLE Users ( 
+    id_user SERIAL PRIMARY KEY, 
+    email VARCHAR(50) NOT NULL, 
+    u_name VARCHAR(50), 
+    u_lastname VARCHAR(75), 
+    age INT, 
+    password VARCHAR(128) 
+); 
+
+-- Create the Recipies table 
+CREATE TABLE Recipies ( 
+    id_recipe SERIAL PRIMARY KEY, 
+    id_user_add INT REFERENCES Users(id_user), 
+    name VARCHAR(200), 
+    description VARCHAR(255), 
+    prep_time TIME, 
+    id_type INT REFERENCES Types(id_type), 
+    public BOOLEAN 
+); 
+
+-- Create the Ingredient_Recipe table 
+CREATE TABLE Ingredient_Recipe ( 
+    id_recipe INT REFERENCES Recipies(id_recipe), 
+    id_ingredient INT REFERENCES Ingredients(id_ingredient), 
+    cantidad DOUBLE PRECISION, 
+    unidades VARCHAR(5), 
+    PRIMARY KEY (id_recipe, id_ingredient) 
+); 
+
+-- Create the User_Recipe table 
+CREATE TABLE User_Recipe ( 
+    id_user INT REFERENCES Users(id_user), 
+    id_recipe INT REFERENCES Recipies(id_recipe), 
+    favorite BOOLEAN, 
+    saved BOOLEAN, 
+    PRIMARY KEY (id_user, id_recipe) 
+); 
+
+-- Create the Menus table 
+CREATE TABLE Menus ( 
+    id_menu SERIAL PRIMARY KEY, 
+    id_user INT REFERENCES Users(id_user), 
+    start_date DATE, 
+    end_date DATE, 
+    title VARCHAR(100) 
+); 
+
+-- Create the Menu_Recipe table 
+CREATE TABLE Menu_Recipe ( 
+    id_menu INT REFERENCES Menus(id_menu), 
+    id_recipe INT REFERENCES Recipies(id_recipe), 
+    day_of_week VARCHAR(10), 
+    meal_type VARCHAR(20), 
+    PRIMARY KEY (id_menu, id_recipe) 
+);  
+
+
 -- ------------------------------------------------
 -- 1. Insert Data into Types (id_type: 1-5)
 -- ------------------------------------------------
@@ -22,7 +92,7 @@ INSERT INTO Ingredients (name, calories, aprox_cost) VALUES
 ('Granulated Sugar', 387.0, 0.15),
 ('Dark Chocolate Chips', 546.0, 2.50),
 ('Spinach (fresh)', 23.0, 1.00),
-('Spaghetti Pasta', 150.0, 1.00);
+('Spaghetti Pasta', 150.0, 1.00),
 ('Lettuce', 15.0, 1.50),
 ('Carrot', 41.0, 0.20),
 ('Onion', 40.0, 0.15),
@@ -140,7 +210,7 @@ INSERT INTO Recipies (id_user_add, name, description, prep_time, id_type, public
 (2, 'Fresh Spinach Salad', 'Light, refreshing salad with a lemon dressing.', '00:10:00', 5, TRUE), -- R5: Snack, Public
 
 -- Recipes added by Bob (ID 3)
-(3, 'Spicy Tomato Pasta', 'A simple Italian-inspired pasta dish with a kick.', '00:35:00', 3, FALSE); -- R6: Dinner, Private
+(3, 'Spicy Tomato Pasta', 'A simple Italian-inspired pasta dish with a kick.', '00:35:00', 3, FALSE), -- R6: Dinner, Private
 
 -- Desayunos (ID Tipo 1)
 (1, 'Oatmeal with Berries', 'Warm and comforting oatmeal topped with fresh berries.', '00:10:00', 1, TRUE),
@@ -192,6 +262,17 @@ INSERT INTO Recipies (id_user_add, name, description, prep_time, id_type, public
 -- ------------------------------------------------
 -- 5. Insert Data into Ingredient_Recipe (Linking ingredients to recipes)
 -- ------------------------------------------------
+-- The following recipes were referenced by Ingredient_Recipe (R48-R53)
+-- but hadn't been inserted earlier. Add lightweight variant entries so
+-- the ingredient links have matching recipe rows.
+INSERT INTO Recipies (id_user_add, name, description, prep_time, id_type, public) VALUES
+(1, 'Spinach Salad (variant)', 'Variant of Fresh Spinach Salad, reusing same ingredients.', '00:10:00', 5, TRUE), -- R48
+(1, 'Tomato Pasta (variant)', 'Variant of Spicy Tomato Pasta.', '00:35:00', 3, TRUE), -- R49
+(1, 'Chicken & Rice (variant)', 'Smaller portion of Grilled Chicken and Rice.', '00:25:00', 2, TRUE), -- R50
+(1, 'Salmon (variant)', 'Simpler salmon with sides.', '00:25:00', 3, TRUE), -- R51
+(1, 'Scrambled Eggs (variant)', 'Quick egg dish variation.', '00:05:00', 1, TRUE), -- R52
+(1, 'Chocolate Chip Cookies (variant)', 'Smaller batch of cookies.', '00:18:00', 4, TRUE);
+
 INSERT INTO Ingredient_Recipe (id_recipe, id_ingredient, cantidad, unidades) VALUES
 -- R1: Chicken and Rice (1: Chicken, 2: Rice, 10: Spinach)
 (1, 1, 200.0, 'g'),
@@ -216,7 +297,7 @@ INSERT INTO Ingredient_Recipe (id_recipe, id_ingredient, cantidad, unidades) VAL
 
 -- R6: Spicy Tomato Pasta (5: Tomato, 11: Pasta)
 (6, 5, 2.0, 'unit'),
-(6, 11, 150.0, 'g');
+(6, 11, 150.0, 'g'),
 
 -- R7: Oatmeal with Berries (62: Oats, 37: Strawberry, 38: Blueberry)
 (7, 62, 50.0, 'g'),
@@ -473,4 +554,3 @@ INSERT INTO Menu_Recipe (id_menu, id_recipe, day_of_week, meal_type) VALUES
 -- M2 (Bob's Quick Daily Plan)
 (2, 3, 'Monday', 'Breakfast'),
 (2, 6, 'Monday', 'Dinner');
-
