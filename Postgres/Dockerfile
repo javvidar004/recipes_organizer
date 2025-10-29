@@ -1,11 +1,9 @@
-FROM postgres:17
+FROM postgres:17-alpine3.22
 
 ENV POSTGRES_USER=admin
-ENV POSTGRES_PASSWORD=mypassword
-ENV POSTGRES_DB=mydatabase
+ENV POSTGRES_PASSWORD=password
+ENV POSTGRES_DB=recipesorg
 
-# psql -U user -d nameDB
-
+COPY ./DBData.sql /docker-entrypoint-initdb.d/
 
 EXPOSE 5432
-
