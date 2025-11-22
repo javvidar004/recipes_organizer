@@ -2,7 +2,6 @@ version: '0.1'
 
 services:
   api:
-    image: golang:1.22.2
     build: ./SpringBoot
     ports:
       - "8080:8080"
@@ -14,12 +13,14 @@ services:
 
   db:
     build: ./Postgres
+    ports:
+      - "5432:5432"
     networks:
       - redWeb
 
 
   frontend:
-    build: ./React
+    build: ./Next
     ports:
       - "3000:3000"
     networks:
