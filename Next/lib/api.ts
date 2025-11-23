@@ -1,7 +1,14 @@
 import axios from 'axios';
 import { Recipe, JWTResponse, IngredientMenu, User, PasswordUpdate, Ingredient } from '../types';
 
-const API_BASE_URL = 'http://localhost:8080/api';
+const API_BASE_URL = (() => {
+  // server-side in Next.js (inside Docker): call internal docker service name
+  if (typeof window === 'undefined') {
+    return 'http://api:8080/api';
+  }
+  // client-side (browser): use public URL or proxy through Next (default '/api')
+  return  'http://localhost:8080/api';
+})();
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,

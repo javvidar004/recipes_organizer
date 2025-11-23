@@ -36,7 +36,6 @@ export default function SignUpPage() {
         return;
       }
 
-      // TODO: replace with your real API URL or NEXT_PUBLIC_ env variable
       const API_URL = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:8080/api';
 
       const res = await fetch(`${API_URL}/auth/signup`, {
