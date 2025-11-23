@@ -16,37 +16,24 @@ CREATE TABLE Users (
     email VARCHAR(50) NOT NULL, 
     u_name VARCHAR(50), 
     u_lastname VARCHAR(75), 
-    age INT, 
     password VARCHAR(128) 
 ); 
 
--- Create the Recipies table 
-CREATE TABLE Recipies ( 
+CREATE TABLE Recipes ( 
     id_recipe SERIAL PRIMARY KEY, 
-    id_user_add INT REFERENCES Users(id_user), 
     name VARCHAR(200), 
     description VARCHAR(255), 
-    prep_time TIME, 
-    id_type INT REFERENCES Types(id_type), 
-    public BOOLEAN 
+    prep_time INT, 
+    id_type INT REFERENCES Types(id_type)
 ); 
 
 -- Create the Ingredient_Recipe table 
 CREATE TABLE Ingredient_Recipe ( 
-    id_recipe INT REFERENCES Recipies(id_recipe), 
+    id SERIAL PRIMARY KEY,
+    id_recipe INT REFERENCES Recipes(id_recipe), 
     id_ingredient INT REFERENCES Ingredients(id_ingredient), 
     cantidad DOUBLE PRECISION, 
-    unidades VARCHAR(5), 
-    PRIMARY KEY (id_recipe, id_ingredient) 
-); 
-
--- Create the User_Recipe table 
-CREATE TABLE User_Recipe ( 
-    id_user INT REFERENCES Users(id_user), 
-    id_recipe INT REFERENCES Recipies(id_recipe), 
-    favorite BOOLEAN, 
-    saved BOOLEAN, 
-    PRIMARY KEY (id_user, id_recipe) 
+    unidades VARCHAR(5)
 ); 
 
 -- Create the Menus table 
@@ -60,11 +47,12 @@ CREATE TABLE Menus (
 
 -- Create the Menu_Recipe table 
 CREATE TABLE Menu_Recipe ( 
+    id SERIAL PRIMARY KEY,
     id_menu INT REFERENCES Menus(id_menu), 
-    id_recipe INT REFERENCES Recipies(id_recipe), 
-    day_of_week VARCHAR(10), 
-    meal_type VARCHAR(20), 
-    PRIMARY KEY (id_menu, id_recipe) 
+    id_recipe INT REFERENCES Recipes(id_recipe), 
+    day_recipe INT, 
+    number_people INT,
+    meal_type VARCHAR(20)
 );  
 
 
@@ -191,87 +179,82 @@ INSERT INTO Ingredients (name, calories, aprox_cost) VALUES
 -- 3. Insert Data into Users (id_user: 1-3)
 -- Note: id_user = 1 is designated as the public user for public recipes.
 -- ------------------------------------------------
-INSERT INTO Users (email, u_name, u_lastname, age, password) VALUES
-('public@recipe.com', 'Public', 'Curator', 99, 'hashed_public_pw_123'), -- ID 1: Public User
-('alice@test.com', 'Alice', 'Smith', 28, 'hashed_alice_pw'),          -- ID 2: Regular User
-('bob@test.com', 'Bob', 'Johnson', 45, 'hashed_bob_pw');              -- ID 3: Regular User
+INSERT INTO Users (email, u_name, u_lastname, password) VALUES
+('public@recipe.com', 'Public', 'Curator', 'hashed_public_pw_123'), -- ID 1: Public User
+('alice@test.com', 'Alice', 'Smith', 'hashed_alice_pw'),          -- ID 2: Regular User
+('bob@test.com', 'Bob', 'Johnson', 'hashed_bob_pw');              -- ID 3: Regular User
 
 -- ------------------------------------------------
--- 4. Insert Data into Recipies (id_recipe: 1-6)
+-- 4. Insert Data into Recipes (id_recipe: 1-6)
 -- ------------------------------------------------
-INSERT INTO Recipies (id_user_add, name, description, prep_time, id_type, public) VALUES
+INSERT INTO Recipes (name, description, prep_time, id_type) VALUES
 -- Recipes added by Public User (ID 1)
-(1, 'Grilled Chicken and Rice', 'A simple, classic healthy meal.', '00:30:00', 2, TRUE),  -- R1: Lunch, Public
-(1, 'Salmon with Roasted Broccoli', 'Quick and healthy dinner rich in Omega-3.', '00:45:00', 3, TRUE), -- R2: Dinner, Public
-(1, 'Scrambled Eggs', 'The fastest protein-packed breakfast.', '00:05:00', 1, TRUE),  -- R3: Breakfast, Public
-
+('Grilled Chicken and Rice', 'A simple, classic healthy meal.', 30, 2),
+('Salmon with Roasted Broccoli', 'Quick and healthy dinner rich in Omega-3.', 45, 3),
+('Scrambled Eggs', 'The fastest protein-packed breakfast.', 5, 1),
 -- Recipes added by Alice (ID 2)
-(2, 'Chocolate Chip Cookies', 'Sweet, chewy, and loaded with chocolate.', '00:20:00', 4, FALSE), -- R4: Dessert, Private
-(2, 'Fresh Spinach Salad', 'Light, refreshing salad with a lemon dressing.', '00:10:00', 5, TRUE), -- R5: Snack, Public
-
+('Chocolate Chip Cookies', 'Sweet, chewy, and loaded with chocolate.', 20, 4),
+('Fresh Spinach Salad', 'Light, refreshing salad with a lemon dressing.', 10, 5),
 -- Recipes added by Bob (ID 3)
-(3, 'Spicy Tomato Pasta', 'A simple Italian-inspired pasta dish with a kick.', '00:35:00', 3, FALSE), -- R6: Dinner, Private
+('Spicy Tomato Pasta', 'A simple Italian-inspired pasta dish with a kick.', 35, 3),
 
 -- Desayunos (ID Tipo 1)
-(1, 'Oatmeal with Berries', 'Warm and comforting oatmeal topped with fresh berries.', '00:10:00', 1, TRUE),
-(1, 'Avocado Toast with Egg', 'Toasted bread topped with mashed avocado and a fried egg.', '00:10:00', 1, TRUE),
-(1, 'Banana Pancakes', 'Fluffy pancakes made with mashed bananas.', '00:20:00', 1, TRUE),
-(1, 'Yogurt Parfait', 'Layers of plain yogurt, granola (oats), and honey.', '00:05:00', 1, TRUE),
-(1, 'Tofu Scramble', 'A vegan alternative to scrambled eggs, seasoned with turmeric.', '00:15:00', 1, TRUE),
-(1, 'Green Smoothie', 'A healthy blend of spinach, banana, and almond milk.', '00:05:00', 1, TRUE),
-(1, 'Breakfast Burrito', 'A tortilla filled with scrambled eggs, black beans, and cheese.', '00:15:00', 1, TRUE),
-(1, 'French Toast', 'Bread slices soaked in egg and milk, then fried.', '00:15:00', 1, TRUE),
+('Oatmeal with Berries', 'Warm and comforting oatmeal topped with fresh berries.', 10, 1),
+('Avocado Toast with Egg', 'Toasted bread topped with mashed avocado and a fried egg.', 10, 1),
+('Banana Pancakes', 'Fluffy pancakes made with mashed bananas.', 20, 1),
+('Yogurt Parfait', 'Layers of plain yogurt, granola (oats), and honey.', 5, 1),
+('Tofu Scramble', 'A vegan alternative to scrambled eggs, seasoned with turmeric.', 15, 1),
+('Green Smoothie', 'A healthy blend of spinach, banana, and almond milk.', 5, 1),
+('Breakfast Burrito', 'A tortilla filled with scrambled eggs, black beans, and cheese.', 15, 1),
+('French Toast', 'Bread slices soaked in egg and milk, then fried.', 15, 1),
 -- Almuerzos (ID Tipo 2)
-(1, 'Quinoa Salad', 'A refreshing salad with quinoa, cucumber, and feta cheese.', '00:15:00', 2, TRUE),
-(1, 'Chicken Salad Sandwich', 'Classic chicken salad served between two slices of bread.', '00:20:00', 2, TRUE),
-(1, 'Lentil Soup', 'A hearty and nutritious soup made with lentils, carrots, and celery.', '01:00:00', 2, TRUE),
-(1, 'Veggie Wrap', 'A tortilla wrap filled with hummus, spinach, and bell peppers.', '00:10:00', 2, TRUE),
-(1, 'Tuna Salad', 'Canned tuna mixed with mayonnaise (egg) and celery.', '00:10:00', 2, TRUE),
-(1, 'Caprese Salad', 'Simple salad of mozzarella, tomatoes, and basil.', '00:10:00', 2, TRUE),
-(1, 'Chicken Caesar Salad', 'Grilled chicken breast on a bed of lettuce with Parmesan.', '00:25:00', 2, TRUE),
-(1, 'Black Bean Soup', 'A savory, spiced soup made from black beans and onion.', '00:45:00', 2, TRUE),
-(1, 'Stuffed Bell Peppers', 'Bell peppers stuffed with ground beef and rice.', '01:15:00', 2, TRUE),
-(1, 'Mushroom Risotto', 'Creamy Italian rice dish made with mushrooms and Parmesan.', '00:45:00', 2, TRUE),
-(1, 'BLT Sandwich', 'The classic bacon, lettuce, and tomato sandwich.', '00:10:00', 2, TRUE),
+('Quinoa Salad', 'A refreshing salad with quinoa, cucumber, and feta cheese.', 15, 2),
+('Chicken Salad Sandwich', 'Classic chicken salad served between two slices of bread.', 20, 2),
+('Lentil Soup', 'A hearty and nutritious soup made with lentils, carrots, and celery.', 60, 2),
+('Veggie Wrap', 'A tortilla wrap filled with hummus, spinach, and bell peppers.', 10, 2),
+('Tuna Salad', 'Canned tuna mixed with mayonnaise (egg) and celery.', 10, 2),
+('Caprese Salad', 'Simple salad of mozzarella, tomatoes, and basil.', 10, 2),
+('Chicken Caesar Salad', 'Grilled chicken breast on a bed of lettuce with Parmesan.', 25, 2),
+('Black Bean Soup', 'A savory, spiced soup made from black beans and onion.', 45, 2),
+('Stuffed Bell Peppers', 'Bell peppers stuffed with ground beef and rice.', 75, 2),
+('Mushroom Risotto', 'Creamy Italian rice dish made with mushrooms and Parmesan.', 45, 2),
+('BLT Sandwich', 'The classic bacon, lettuce, and tomato sandwich.', 10, 2),
 -- Cenas (ID Tipo 3)
-(1, 'Spaghetti Bolognese', 'Classic Italian pasta dish with a rich meat sauce.', '01:30:00', 3, TRUE),
-(1, 'Beef Stir-Fry', 'Quick stir-fried ground beef with broccoli and soy sauce.', '00:25:00', 3, TRUE),
-(1, 'Pork Chops with Apples', 'Seared pork chops served with a sweet apple compote.', '00:40:00', 3, TRUE),
-(1, 'Vegetable Curry', 'A fragrant curry with chickpeas, potatoes, and spinach in a coconut milk (milk) base.', '00:45:00', 3, TRUE),
-(1, 'Shrimp Scampi with Zoodles', 'Shrimp sauteed in garlic and butter, served over zucchini noodles.', '00:20:00', 3, TRUE),
-(1, 'Baked Cod with Asparagus', 'Cod fillet baked with lemon and asparagus.', '00:25:00', 3, TRUE),
-(1, 'Tofu and Vegetable Skewers', 'Marinated tofu and vegetable pieces grilled on skewers.', '00:30:00', 3, TRUE),
-(1, 'Black Bean Burgers', 'Homemade vegetarian burgers made from black beans and spices.', '00:40:00', 3, TRUE),
-(1, 'Chicken Parmesan', 'Breaded chicken breast topped with tomato sauce and mozzarella.', '00:45:00', 3, TRUE),
-(1, 'Vegetable Fried Rice', 'A simple stir-fry with rice, peas, carrots, corn, and egg.', '00:20:00', 3, TRUE),
-(1, 'Shepherd''s Pie', 'A comforting pie of ground beef and vegetables topped with mashed potatoes.', '01:10:00', 3, TRUE),
-(1, 'Fajitas', 'Sizzling chicken strips with bell peppers and onions.', '00:30:00', 3, TRUE),
+('Spaghetti Bolognese', 'Classic Italian pasta dish with a rich meat sauce.', 90, 3),
+('Beef Stir-Fry', 'Quick stir-fried ground beef with broccoli and soy sauce.', 25, 3),
+('Pork Chops with Apples', 'Seared pork chops served with a sweet apple compote.', 40, 3),
+('Vegetable Curry', 'A fragrant curry with chickpeas, potatoes, and spinach in a coconut milk (milk) base.', 45, 3),
+('Shrimp Scampi with Zoodles', 'Shrimp sauteed in garlic and butter, served over zucchini noodles.', 20, 3),
+('Baked Cod with Asparagus', 'Cod fillet baked with lemon and asparagus.', 25, 3),
+('Tofu and Vegetable Skewers', 'Marinated tofu and vegetable pieces grilled on skewers.', 30, 3),
+('Black Bean Burgers', 'Homemade vegetarian burgers made from black beans and spices.', 40, 3),
+('Chicken Parmesan', 'Breaded chicken breast topped with tomato sauce and mozzarella.', 45, 3),
+('Vegetable Fried Rice', 'A simple stir-fry with rice, peas, carrots, corn, and egg.', 20, 3),
+('Shepherd''s Pie', 'A comforting pie of ground beef and vegetables topped with mashed potatoes.', 70, 3),
+('Fajitas', 'Sizzling chicken strips with bell peppers and onions.', 30, 3),
 -- Postres (ID Tipo 4)
-(1, 'Apple Crumble', 'Baked apples topped with a crispy oat and butter crumble.', '00:50:00', 4, TRUE),
-(1, 'Chocolate Avocado Mousse', 'A healthy, creamy dessert made from avocado and dark chocolate.', '00:10:00', 4, TRUE),
-(1, 'Peanut Butter Cookies', 'Simple cookies made with peanut butter, egg, and sugar.', '00:15:00', 4, TRUE),
-(1, 'Mango Sorbet', 'A refreshing frozen dessert made from ripe mangoes.', '00:10:00', 4, TRUE),
-(1, 'Rice Pudding', 'Creamy pudding made with rice, milk, and cinnamon.', '00:40:00', 4, TRUE),
+('Apple Crumble', 'Baked apples topped with a crispy oat and butter crumble.', 50, 4),
+('Chocolate Avocado Mousse', 'A healthy, creamy dessert made from avocado and dark chocolate.', 10, 4),
+('Peanut Butter Cookies', 'Simple cookies made with peanut butter, egg, and sugar.', 15, 4),
+('Mango Sorbet', 'A refreshing frozen dessert made from ripe mangoes.', 10, 4),
+('Rice Pudding', 'Creamy pudding made with rice, milk, and cinnamon.', 40, 4),
 -- Snacks (ID Tipo 5)
-(1, 'Guacamole', 'A dip made from mashed avocados, onion, lime, and cilantro.', '00:10:00', 5, TRUE),
-(1, 'Hummus with Carrots', 'Chickpea dip served with carrot sticks.', '00:05:00', 5, TRUE),
-(1, 'Apple Slices with Peanut Butter', 'A simple, high-protein snack.', '00:05:00', 5, TRUE),
-(1, 'Mixed Nuts', 'A simple blend of almonds, walnuts, and cashews.', '00:01:00', 5, TRUE),
-(1, 'Caprese Skewers', 'Cherry tomatoes, mozzarella, and basil drizzled with balsamic.', '00:15:00', 5, TRUE);
+('Guacamole', 'A dip made from mashed avocados, onion, lime, and cilantro.', 10, 5),
+('Hummus with Carrots', 'Chickpea dip served with carrot sticks.', 5, 5),
+('Apple Slices with Peanut Butter', 'A simple, high-protein snack.', 5, 5),
+('Mixed Nuts', 'A simple blend of almonds, walnuts, and cashews.', 1, 5),
+('Caprese Skewers', 'Cherry tomatoes, mozzarella, and basil drizzled with balsamic.', 15, 5);
 
 -- ------------------------------------------------
 -- 5. Insert Data into Ingredient_Recipe (Linking ingredients to recipes)
 -- ------------------------------------------------
--- The following recipes were referenced by Ingredient_Recipe (R48-R53)
--- but hadn't been inserted earlier. Add lightweight variant entries so
--- the ingredient links have matching recipe rows.
-INSERT INTO Recipies (id_user_add, name, description, prep_time, id_type, public) VALUES
-(1, 'Spinach Salad (variant)', 'Variant of Fresh Spinach Salad, reusing same ingredients.', '00:10:00', 5, TRUE), -- R48
-(1, 'Tomato Pasta (variant)', 'Variant of Spicy Tomato Pasta.', '00:35:00', 3, TRUE), -- R49
-(1, 'Chicken & Rice (variant)', 'Smaller portion of Grilled Chicken and Rice.', '00:25:00', 2, TRUE), -- R50
-(1, 'Salmon (variant)', 'Simpler salmon with sides.', '00:25:00', 3, TRUE), -- R51
-(1, 'Scrambled Eggs (variant)', 'Quick egg dish variation.', '00:05:00', 1, TRUE), -- R52
-(1, 'Chocolate Chip Cookies (variant)', 'Smaller batch of cookies.', '00:18:00', 4, TRUE);
+INSERT INTO Recipes (name, description, prep_time, id_type) VALUES
+('Spinach Salad (variant)', 'Variant of Fresh Spinach Salad, reusing same ingredients.', 10, 5), -- R48
+('Tomato Pasta (variant)', 'Variant of Spicy Tomato Pasta.', 35, 3), -- R49
+('Chicken & Rice (variant)', 'Smaller portion of Grilled Chicken and Rice.', 25, 2), -- R50
+('Salmon (variant)', 'Simpler salmon with sides.', 25, 3), -- R51
+('Scrambled Eggs (variant)', 'Quick egg dish variation.', 5, 1), -- R52
+('Chocolate Chip Cookies (variant)', 'Smaller batch of cookies.', 18, 4);
 
 INSERT INTO Ingredient_Recipe (id_recipe, id_ingredient, cantidad, unidades) VALUES
 -- R1: Chicken and Rice (1: Chicken, 2: Rice, 10: Spinach)
@@ -528,29 +511,15 @@ INSERT INTO Menus (id_user, start_date, end_date, title) VALUES
 (3, '2025-10-15', '2025-10-15', 'Bob''s Quick Daily Plan');     -- M2: Bob's Menu
 
 -- ------------------------------------------------
--- 7. Insert Data into User_Recipe (User favorites/saves of recipes)
+-- 7. Insert Data into Menu_Recipe (Recipes scheduled in a menu)
 -- ------------------------------------------------
-INSERT INTO User_Recipe (id_user, id_recipe, favorite, saved) VALUES
--- Alice (ID 2) interactions
-(2, 1, TRUE, TRUE),   -- Alice favorites/saves R1 (Public)
-(2, 2, FALSE, TRUE),  -- Alice saves R2 (Public)
-(2, 6, TRUE, FALSE),  -- Alice favorites R6 (Bob's Private)
-(2, 5, FALSE, TRUE),  -- Alice saves R5 (Her own Public)
-
--- Bob (ID 3) interactions
-(3, 3, FALSE, TRUE),  -- Bob saves R3 (Public)
-(3, 4, TRUE, TRUE);   -- Bob favorites/saves R4 (Alice's Private)
-
--- ------------------------------------------------
--- 8. Insert Data into Menu_Recipe (Recipes scheduled in a menu)
--- ------------------------------------------------
-INSERT INTO Menu_Recipe (id_menu, id_recipe, day_of_week, meal_type) VALUES
+INSERT INTO Menu_Recipe (id_menu, id_recipe, day_recipe, number_people, meal_type) VALUES
 -- M1 (Alice's Weekly Meal Prep)
-(1, 1, 'Monday', 'Lunch'),
-(1, 2, 'Tuesday', 'Dinner'),
-(1, 5, 'Wednesday', 'Lunch'),
-(1, 3, 'Thursday', 'Breakfast'),
+(1, 1, 3, 4, 'Lunch'),
+(1, 2, 2, 4, 'Dinner'),
+(1, 5, 4, 4, 'Lunch'),
+(1, 3, 5, 4, 'Breakfast'),
 
 -- M2 (Bob's Quick Daily Plan)
-(2, 3, 'Monday', 'Breakfast'),
-(2, 6, 'Monday', 'Dinner');
+(2, 3, 15, 4, 'Breakfast'),
+(2, 6, 15, 4, 'Dinner');
