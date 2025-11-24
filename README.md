@@ -13,10 +13,6 @@
 - [Base de datos — PostgreSQL](#base-de-datos--postgresql)
 - [Docker / Compose](#docker--compose)
 - [Ejecución local (rápido)](#ejecución-local-rápido)
-- [Puntos de depuración y problemas conocidos](#puntos-de-depuración-y-problemas-conocidos)
-- [Seguridad y recomendaciones](#seguridad-y-recomendaciones)
-- [Próximos pasos sugeridos](#próximos-pasos-sugeridos)
-- [Contacto y ayuda](#contacto-y-ayuda)
 
 Descripción
 -----------
