@@ -1,3 +1,4 @@
+'use client';
 // app/(main)/configurations/page.tsx
 import ProfileForm from '@/components/configurations/ProfileForm';
 import PasswordForm from '@/components/configurations/PasswordForm';
