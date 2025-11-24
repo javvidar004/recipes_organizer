@@ -1,7 +1,7 @@
 // app/(main)/configurations/page.tsx
 import ProfileForm from '@/components/configurations/ProfileForm';
 import PasswordForm from '@/components/configurations/PasswordForm';
-import { mockUser } from '@/lib/mockData';
+import { useCurrentUser } from '@/lib/userContext';
 
 /**
  * Página de "Configuraciones".
@@ -9,6 +9,7 @@ import { mockUser } from '@/lib/mockData';
  * Está dividida en secciones para facilitar la gestión.
  */
 export default function ConfigurationsPage() {
+  const user = useCurrentUser();
   return (
     <div className="container mx-auto max-w-3xl">
       {/* Encabezado */}
@@ -22,7 +23,7 @@ export default function ConfigurationsPage() {
           <h2 className="text-xl font-bold text-dark-background border-b pb-3 mb-4">
             Información del Perfil
           </h2>
-          <ProfileForm user={mockUser} />
+          <ProfileForm user={user ?? undefined} />
         </div>
 
         {/* Sección para Cambiar Contraseña */}

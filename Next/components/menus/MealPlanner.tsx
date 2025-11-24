@@ -22,7 +22,15 @@ const MealPlanner = ({ date }: MealPlannerProps) => {
   const [saving, setSaving] = useState<{ [k: string]: boolean }>({});
   const [error, setError] = useState<string | null>(null);
 
-  const dateStr = date.toISOString().slice(0, 10); // YYYY-MM-DD
+  // format a Date to local YYYY-MM-DD to avoid UTC shifts from toISOString
+  const formatLocalDate = (d: Date) => {
+    const y = d.getFullYear();
+    const m = String(d.getMonth() + 1).padStart(2, '0');
+    const dd = String(d.getDate()).padStart(2, '0');
+    return `${y}-${m}-${dd}`;
+  };
+
+  const dateStr = formatLocalDate(date); // YYYY-MM-DD (local)
 
   useEffect(() => {
     let mounted = true;
@@ -39,8 +47,8 @@ const MealPlanner = ({ date }: MealPlannerProps) => {
         startLoad.setHours(0, 0, 0, 0);
         const endLoad = new Date(startLoad);
         endLoad.setDate(startLoad.getDate() + 6);
-        const startISOLoad = startLoad.toISOString().slice(0, 10);
-        const endISOLoad = endLoad.toISOString().slice(0, 10);
+        const startISOLoad = formatLocalDate(startLoad);
+        const endISOLoad = formatLocalDate(endLoad);
 
         const [allRecipes, mealsForDate] = await Promise.all([
           getRecipes(),
@@ -125,8 +133,8 @@ const MealPlanner = ({ date }: MealPlannerProps) => {
   const end = new Date(start);
   end.setDate(start.getDate() + 6);
   end.setHours(23, 59, 59, 999);
-  const startISO = start.toISOString().slice(0, 10);
-  const endISO = end.toISOString().slice(0, 10);
+  const startISO = formatLocalDate(start);
+  const endISO = formatLocalDate(end);
 
   // send day-of-month integer as `date` per backend requirement
   const dayOfMonth = date.getDate();

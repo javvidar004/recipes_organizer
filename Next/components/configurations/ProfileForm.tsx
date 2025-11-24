@@ -2,11 +2,10 @@
  'use client';
 import React, { useState } from 'react';
 import { User } from '@/types';
-import { getUserData, updateUserProfile } from '@/lib/api';
-import { useQuery } from '@tanstack/react-query'; 
+import { updateUserProfile } from '@/lib/api';
 
 interface ProfileFormProps {
-  user: User;
+  user?: User;
 }
 
 /**
@@ -15,15 +14,11 @@ interface ProfileFormProps {
  */
 const ProfileForm = ({ user }: ProfileFormProps) => {
 
-  const {
-    data: userData,
-    isLoading,
-    isError,
-  } = useQuery<User>({
-    queryKey: ['user', user.id],
-    queryFn: () => getUserData(),
-    initialData: user,
-  });
+  const userData = user;
+
+  if (!userData) {
+    return <p>Loading user...</p>;
+  }
 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);

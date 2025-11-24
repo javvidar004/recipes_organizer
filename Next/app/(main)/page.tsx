@@ -2,9 +2,7 @@
 'use client';
 import WelcomeHeader from '@/components/dashboard/WelcomeHeader';
 import QuickActions from '@/components/dashboard/QuickActions';
-import { useQuery } from '@tanstack/react-query';
-import { getUserData } from '@/lib/api';
-import { User } from '@/types';
+import { useCurrentUser } from '@/lib/userContext';
 
 /**
  * Homepage para usuarios autenticados (Dashboard).
@@ -12,20 +10,12 @@ import { User } from '@/types';
  * y una vista previa de las recetas favoritas.
  */
 export default function DashboardPage() {
-
-  const {
-    data: userData,
-    isLoading,
-    isError,
-  } = useQuery<User>({
-    queryKey: ['user'],
-    queryFn: getUserData,
-  });
+  const userData = useCurrentUser();
 
   return (
     <div className="container mx-auto space-y-8">
       {/* 1. Saludo de Bienvenida */}
-  <WelcomeHeader name={userData?.uname ?? ''} />
+      <WelcomeHeader name={userData?.uname ?? ''} />
 
       {/* 2. Acciones Rápidas */}
       <QuickActions />

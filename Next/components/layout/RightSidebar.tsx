@@ -3,8 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { XMarkIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
 import { User, UserStats } from '@/types';
-import { clearAuth, getUserData } from '@/lib/api';
-import { useQuery } from '@tanstack/react-query';
+import { clearAuth } from '@/lib/api';
 
 // Component props
 interface RightSidebarProps {
@@ -21,14 +20,7 @@ interface RightSidebarProps {
 const RightSidebar = ({ isOpen, onClose, user, stats }: RightSidebarProps) => {
   const router = useRouter();
 
-    const {
-    data: userData,
-    isLoading,
-    isError,
-  } = useQuery<User>({
-    queryKey: ['user'],
-    queryFn: getUserData,
-  });
+  // user is provided by parent layout via prop; no local query here
 
   return (
     <>
@@ -57,8 +49,8 @@ const RightSidebar = ({ isOpen, onClose, user, stats }: RightSidebarProps) => {
 
           {/* User Info */}
           <div className="bg-secondary p-4 rounded-lg my-4">
-            <p className="font-bold text-lg">{`${userData?.uname} ${userData?.ulastName}`}</p>
-            <p className="text-sm text-gray-200">{userData?.email}</p>
+            <p className="font-bold text-lg">{`${user?.uname} ${user?.ulastName}`}</p>
+            <p className="text-sm text-gray-200">{user?.email}</p>
           </div>
           
           {/* Logout Button */}
