@@ -306,13 +306,6 @@ public MenuResponse getMenuForUserAndDate(Long userId, LocalDate date) {
 - Validar que el `userId` en la URL coincide con el `userId` del token JWT (no confiar en un valor enviado por el cliente).
 - Usar `@PreAuthorize` / `@RolesAllowed` cuando sea necesario para controlar accesos por roles.
 
-8) Recomendaciones prácticas
------------------------------
-- Añadir `MapStruct` para mapeos entity↔DTO si el proyecto crece (mapas automáticos y performantes).
-- Añadir contratos OpenAPI/Swagger para documentar automáticamente los DTOs y endpoints.
-- Versionar la API (`/api/v1/...`) si piensas introducir cambios incompatibles en el futuro.
-
-Con esto tienes una visión técnica más profunda y ejemplos concretos para ver cómo los DTOs se construyen en el backend y viajan como JSON hasta el frontend, donde se representan por interfaces TypeScript. Si quieres, aplico alguno de estos cambios (por ejemplo: crear `@EntityGraph` en `MenuRepository`, añadir `MapStruct` o generar OpenAPI`).
 
 API (Spring Boot) — Estructura detallada por capas
 -------------------------------------------------
@@ -516,16 +509,3 @@ public class SecurityConfig {
 ```
 
 El `JwtFilter` valida el token, extrae claims y coloca una `Authentication` en el `SecurityContext`.
-
-Consideraciones de diseño
--------------------------
-- Separación clara de responsabilidades (Controller/Service/Repository) facilita testing y mantenimiento.
-- DTOs protegen el modelo de persistencia y permiten evolucionar la API sin romper consumidores.
-- Seguridad centralizada (filtros + config) hace la política consistente y fácil de auditar.
-- Manejo de excepciones centralizado garantiza respuestas uniformes y adecuadas para el frontend.
-
-Si quieres, puedo:
-- Implementar un ejemplo real de `@EntityGraph` en el `MenuRepository` del proyecto y añadir tests que demuestren la reducción de queries.
-- Añadir `ControllerAdvice` real al proyecto si no existe ya.
-- Generar un ejemplo básico de `JwtFilter` y su integración en `SecurityConfig`.
-
