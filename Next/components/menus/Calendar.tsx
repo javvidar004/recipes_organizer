@@ -16,9 +16,17 @@ interface CalendarProps {
  */
 const Calendar = ({ selectedDate, onDateSelect }: CalendarProps) => {
   // Lógica simple para renderizar los días del mes actual.
+  // Use the selectedDate as the month to display (not always "today")
+  const displayYear = selectedDate.getFullYear();
+  const displayMonth = selectedDate.getMonth();
   const today = new Date();
-  const daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+
+  // number of days in the displayed month
+  const daysInMonth = new Date(displayYear, displayMonth + 1, 0).getDate();
   const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+  // weekday of the 1st of the month (0 = Sunday, 6 = Saturday)
+  const firstWeekday = new Date(displayYear, displayMonth, 1).getDay();
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-lg">
@@ -37,13 +45,24 @@ const Calendar = ({ selectedDate, onDateSelect }: CalendarProps) => {
         {['D', 'L', 'M', 'X', 'J', 'V', 'S'].map(day => (
           <div key={day} className="font-semibold text-sm text-gray-500">{day}</div>
         ))}
+        {/* pad empty slots so the 1st of the month falls on the correct weekday */}
+        {Array.from({ length: firstWeekday }).map((_, i) => (
+          <div key={`pad-${i}`} />
+        ))}
+
         {days.map((day) => {
-          const isSelected = selectedDate.getDate() === day;
-          const isToday = today.getDate() === day;
+          const isSelected =
+            selectedDate.getFullYear() === displayYear &&
+            selectedDate.getMonth() === displayMonth &&
+            selectedDate.getDate() === day;
+          const isToday =
+            today.getFullYear() === displayYear &&
+            today.getMonth() === displayMonth &&
+            today.getDate() === day;
           return (
             <button
               key={day}
-              onClick={() => onDateSelect(new Date(today.getFullYear(), today.getMonth(), day))}
+              onClick={() => onDateSelect(new Date(displayYear, displayMonth, day))}
               className={`p-2 rounded-full transition-colors ${
                 isSelected
                   ? 'bg-primary text-white scale-110'
